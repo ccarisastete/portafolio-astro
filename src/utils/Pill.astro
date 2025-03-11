@@ -1,0 +1,12 @@
+---
+const { className, skills } = Astro.props;
+---
+
+<div class={className}>
+  {
+    Array.isArray(skills) &&
+      skills.map((skill, index) => {
+        return <span class="rounded outline-btn-blue border-b-2 border-r-2 border-btn-blue outline p-1 text-sm" :key={index}>{skill}</span>;
+      })
+  }
+</div>

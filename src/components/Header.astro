@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import Avatar from "../assets/avatar3.webp";
+---
+
+<div
+  class="pt-3 pr-10 pb-3 items-center justify-center flex relative w-full mx-auto"
+>
+  <div class="pl-5 flex flex-col gap-4 w-full">
+    <div class="text-2xl">
+      ¡Hola! ✋ mi nombre es <span class="text-btn-blue font-bold">
+        César Caris</span
+      >
+    </div>
+    <div>Junior Full-Stack Developer</div>
+  </div>
+  <div class="rounded-full w-40 overflow-auto items-center">
+    <Image src={Avatar} alt="A bird." />
+  </div>
+</div>

@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background-gray: #0f0f0f;
+  --color-text-gray: #e0e0e0;
+  --color-detail-purple: #ffff00;
+  --color-btn-blue: #33ff33;
+  --color-hover-goldy: #ffaa00;
+  --color-card-bg: #1a1a1a;
+}

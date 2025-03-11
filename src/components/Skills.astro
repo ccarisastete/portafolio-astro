@@ -1,0 +1,23 @@
+---
+import Pill from "../utils/Pill.astro";
+import * as skills from "../pages/skills/skills.md";
+---
+
+<div class="p-2">
+  <h1 class="font-bold text-2xl text-detail-purple pb-2">Skills 🙌</h1>
+  <h1 class="text-xl font-bold text-hover-goldy">Software</h1>
+  <Pill
+    className="flex flex-wrap content-around gap-2 my-4"
+    skills={skills.frontmatter.codeLenguages}
+  />
+  <h1 class="text-xl font-bold">Tools</h1>
+  <Pill
+    className="flex flex-wrap content-around gap-2 my-4"
+    skills={skills.frontmatter.tools}
+  />
+  <h1 class="text-xl font-bold">Lenguages</h1>
+  <Pill
+    className="flex flex-wrap content-around gap-2 my-4"
+    skills={skills.frontmatter.lenguages}
+  />
+</div>

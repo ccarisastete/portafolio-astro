@@ -1,0 +1,21 @@
+---
+import Card from "../utils/Card.astro";
+const education = await Astro.glob("../pages/education/*.md");
+---
+
+<div class="p-2">
+  <h1 class="font-bold text-2xl text-detail-purple pb-2">Educacion 📖</h1>
+  <div class="flex flex-col gap-2">
+    {
+      education.map((item) => {
+        return (
+          <Card
+            title={item.frontmatter.position}
+            subtitle={item.frontmatter.location}
+            date={item.frontmatter.date}
+          />
+        );
+      })
+    }
+  </div>
+</div>
