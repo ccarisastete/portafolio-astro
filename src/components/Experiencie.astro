@@ -4,7 +4,9 @@ const work = await Astro.glob("../pages/experiencie/*.md");
 ---
 
 <div class="p-2">
-  <h1 class="font-bold text-2xl text-detail-purple pb-2">Experiencia 🛠️</h1>
+  <h1 class="font-bold text-2xl text-detail-purple pb-2">
+    Experiencia <span>🛠️</span>
+  </h1>
   <div class="grid grid-col-3 gap-2">
     {
       work.map((item) => {

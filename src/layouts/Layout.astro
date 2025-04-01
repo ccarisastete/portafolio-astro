@@ -11,13 +11,96 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <title>Portafolio</title>
   </head>
-  <body class="p-2 max-w-5xl bg-background-gray text-text-gray mx-auto">
+  <body class="p-8 h-screen">
+    <canvas id="spiral"></canvas>
     <slot />
-    <p class="flex items-center justify-center">
-      Hecho con ❤️ por <span class="text-btn-blue font-bold pl-2"
-        >César Caris</span
-      >
-    </p>
+    <script>
+      const canvas = document.getElementById("spiral");
+      const ctx = canvas.getContext("2d");
+      let width, height;
+
+      const spacing = 20;
+      let points = [];
+
+      function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        setupPoints();
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+      function setupPoints() {
+        points = [];
+        for (let x = 0; x < width; x += spacing) {
+          for (let y = 0; y < height; y += spacing) {
+            const dx = x - width / 2;
+            const dy = y - height / 2;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            points.push({ x, y, distance });
+          }
+        }
+      }
+
+      const waveSpeed = 1;
+      const waveInterval = 5000; // ms entre olas
+      const waveWidth = 80;
+      const maxPointSize = 5;
+      const maxOpacity = 1;
+
+      let waves = [];
+
+      function addWave() {
+        waves.push({ radius: 0 });
+      }
+
+      // ⏱️ Crear una nueva ola cada cierto tiempo
+      setInterval(addWave, waveInterval);
+      addWave(); // empezar con una ola activa
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (const point of points) {
+          let finalOpacity = 0;
+          let finalSize = 0;
+
+          for (const wave of waves) {
+            const diff = Math.abs(point.distance - wave.radius);
+            if (diff < waveWidth) {
+              const t = 1 - diff / waveWidth;
+              const opacity = t * maxOpacity;
+              const size = t * maxPointSize;
+
+              if (opacity > finalOpacity) {
+                finalOpacity = opacity;
+                finalSize = size;
+              }
+            }
+          }
+
+          if (finalOpacity > 0) {
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, finalSize, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 0, 0, ${finalOpacity})`;
+            ctx.fill();
+          }
+        }
+
+        // mover olas
+        for (const wave of waves) {
+          wave.radius += waveSpeed;
+        }
+
+        // eliminar olas fuera del canvas
+        const maxDistance = Math.sqrt(width ** 2 + height ** 2);
+        waves = waves.filter((w) => w.radius < maxDistance + waveWidth);
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    </script>
   </body>
 </html>
 
